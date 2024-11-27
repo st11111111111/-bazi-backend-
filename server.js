@@ -11,7 +11,7 @@ const corsOptions = {
   origin: [
     'https://v0-toberich-gnro3xop0s4-2dpm23eu2-heng9961-gmailcoms-projects.vercel.app',
     'https://v0-toberich-gnro3xop0s4.vercel.app',
-    'http://localhost:3000'  // 本地开发用
+    'http://localhost:3000'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -19,23 +19,14 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 
-// 中间件
 app.use(cors(corsOptions));
 app.use(express.json());
-
-// MongoDB 连接
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/bazhi';
-mongoose.connect(MONGODB_URI)
-  .then(() => console.log('MongoDB 连接成功'))
-  .catch(err => console.error('MongoDB 连接失败:', err));
 
 // 测试路由
 app.get('/api/test', (req, res) => {
   res.json({ 
     message: '后端API正常工作',
-    timestamp: new Date().toISOString(),
-    env: process.env.NODE_ENV,
-    mongoStatus: mongoose.connection.readyState === 1 ? '已连接' : '未连接'
+    timestamp: new Date().toISOString()
   });
 });
 
